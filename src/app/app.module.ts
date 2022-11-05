@@ -23,6 +23,8 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { ManageComponent } from './pages/manage/manage.component';
+import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import {NzInputModule} from "ng-zorro-antd/input";
 
@@ -34,7 +36,8 @@ registerLocaleData(en);
     StudentComponent,
     InstructorComponent,
     CreateClassComponent,
-    AuthComponent
+    AuthComponent,
+    ManageComponent
   ],
   imports: [
     BrowserModule,
@@ -48,6 +51,7 @@ registerLocaleData(en);
     NzTabsModule,
     NzTableModule,
     NzLayoutModule,
+    NzCardModule,
     NzNotificationModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),

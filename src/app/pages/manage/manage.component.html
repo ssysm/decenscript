@@ -1,0 +1,53 @@
+<nz-tabset style="height: 100%">
+    <nz-tab nzTitle="Student">
+        <div style="background: #ECECEC;padding:30px;">
+            <nz-card style="width: 100%;" [nzBordered]="false" nzTitle="New Student" [ngStyle]="{width: '100%', textAlign: 'center'}">
+        <p>Student Name :
+            <input nz-input placeholder="Enter Class Name" [(ngModel)]="studentName" /> Address:
+            <input nz-input placeholder="Enter Class Name" [(ngModel)]="studentAddr" />
+            <button nz-button nzType="primary">Create</button></p>
+    </nz-card>
+    </div>
+        <p></p>
+          <nz-table>
+              <thead>
+                <tr>
+                  <th>Student Name</th>
+                  <th>Address</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Joe Su</td>
+                  <td>395B431113</td>
+                  <td>
+                    <nz-button-group>
+                    <button nz-button nzType="primary">Lock</button>
+                    <button nz-button>Export</button>
+                </nz-button-group>
+                  </td>
+                </tr>
+              </tbody>
+            </nz-table>
+      </nz-tab>
+    <nz-tab nzTitle="Instructor"
+      ><nz-table>
+        <thead>
+          <tr>
+            <th>Student Name</th>
+            <th>Class Name</th>
+            <th>Grade</th>
+            <th>Signiture</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Joe Su</td>
+            <td>CMPSC 311</td>
+            <td>A</td>
+            <td>SIGN</td>
+          </tr>
+        </tbody>
+      </nz-table></nz-tab>
+  </nz-tabset>
