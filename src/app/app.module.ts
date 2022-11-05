@@ -13,12 +13,26 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { StudentComponent } from './pages/student/student.component';
+import { InstructorComponent } from './pages/instructor/instructor.component';
+import { CreateClassComponent } from './pages/create-class/create-class.component';
+import { AuthComponent } from './pages/auth/auth.component';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
 
 registerLocaleData(en);
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    StudentComponent,
+    InstructorComponent,
+    CreateClassComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
@@ -26,6 +40,12 @@ registerLocaleData(en);
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    NzDropDownModule,
+    NzButtonModule,
+    NzSelectModule,
+    NzTabsModule,
+    NzTableModule,
+    NzLayoutModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore())
   ],
