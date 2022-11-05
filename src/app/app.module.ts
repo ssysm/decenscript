@@ -27,6 +27,8 @@ import { ManageComponent } from './pages/manage/manage.component';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import {NzInputModule} from "ng-zorro-antd/input";
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzGridModule } from 'ng-zorro-antd/grid';
 
 registerLocaleData(en);
 
@@ -53,6 +55,8 @@ registerLocaleData(en);
     NzLayoutModule,
     NzCardModule,
     NzNotificationModule,
+    NzDividerModule,
+    NzGridModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
     NzInputModule
