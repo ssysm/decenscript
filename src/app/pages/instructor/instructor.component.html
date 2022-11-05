@@ -3,6 +3,8 @@
 </div>
 <nz-tabset style="height: 100%">
   <nz-tab nzTitle="Fall 2022">
+    <nz-tabset>
+        <nz-tab nzTitle = "CMPSC311">
     <nz-table
         [nzScroll] = "{y :'1000px'}">
       <thead>
@@ -32,9 +34,14 @@
         </tr>
       </tbody>
     </nz-table>
+</nz-tab>
+</nz-tabset>
   </nz-tab>
   <nz-tab nzTitle="Spring 2023"
-    ><nz-table>
+    >
+    <nz-tabset>
+        <nz-tab nzTitle = "CMPSC311">
+            <nz-table>
       <thead>
         <tr>
           <th>Student Name</th>
@@ -47,10 +54,22 @@
         <tr>
           <td>Joe Su</td>
           <td>CMPSC 311</td>
-          <td>A</td>
-          <td>SIGN</td>
+          <td><nz-select ngModel="Grades">
+            <nz-option nzValue="A" nzLabel="A"></nz-option>
+            <nz-option nzValue="A-" nzLabel="A-"></nz-option>
+            <nz-option nzValue="B+" nzLabel="B+"></nz-option>
+            <nz-option nzValue="B" nzLabel="B"></nz-option>
+            <nz-option nzValue="B-" nzLabel="B-"></nz-option>
+            <nz-option nzValue="C+" nzLabel="C+"></nz-option>
+            <nz-option nzValue="C" nzLabel="C"></nz-option>
+            <nz-option nzValue="D" nzLabel="D"></nz-option>
+            <nz-option nzValue="F" nzLabel="F"></nz-option>
+        </nz-select></td>
+          <td><button nz-button nzType="primary" nzBlock>Sign</button></td>
         </tr>
       </tbody>
-    </nz-table></nz-tab
-  >
+    </nz-table>
+</nz-tab>
+</nz-tabset>
+    </nz-tab>
 </nz-tabset>

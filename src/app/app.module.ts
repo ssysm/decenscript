@@ -29,6 +29,7 @@ import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import {NzInputModule} from "ng-zorro-antd/input";
 import {NzModalModule} from "ng-zorro-antd/modal";
 import {NzDividerModule} from "ng-zorro-antd/divider";
+import { NzGridModule } from 'ng-zorro-antd/grid';
 
 registerLocaleData(en);
 
@@ -55,11 +56,12 @@ registerLocaleData(en);
     NzLayoutModule,
     NzCardModule,
     NzNotificationModule,
+    NzDividerModule,
+    NzGridModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
     NzInputModule,
     NzModalModule,
-    NzDividerModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US }
