@@ -8,10 +8,4 @@ import Web3 from 'web3';
 })
 export class AppComponent {
   title = 'decenscript';
-
-  // private web3: Web3; 
-
-  // constructor() {
-  //   this.web3 = new Web3("web3-provider-url");
-  // }
 }

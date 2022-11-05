@@ -23,6 +23,8 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzNotificationModule } from 'ng-zorro-antd/notification';
+import {NzInputModule} from "ng-zorro-antd/input";
 
 registerLocaleData(en);
 
@@ -46,8 +48,10 @@ registerLocaleData(en);
     NzTabsModule,
     NzTableModule,
     NzLayoutModule,
+    NzNotificationModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideFirestore(() => getFirestore())
+    provideFirestore(() => getFirestore()),
+    NzInputModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US }
