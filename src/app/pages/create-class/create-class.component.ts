@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {doc, Firestore, getDoc, setDoc} from "@angular/fire/firestore";
+import {doc, Firestore, setDoc} from "@angular/fire/firestore";
 import {Router} from "@angular/router";
 import {NzNotificationService} from "ng-zorro-antd/notification";
 import Web3 from "web3";
+import { customAlphabet } from 'nanoid';
+const nanoid = customAlphabet('1234567890ABCDEF', 10)
 
 @Component({
   selector: 'app-create-class',
@@ -46,14 +48,11 @@ export class CreateClassComponent implements OnInit {
       return;
     }
     // check if class exists
-    const classRef = doc(this._db, 'classes', this.semesterName + '-' + this.className);
-    const classSnap = await getDoc(classRef);
-    if(classSnap.exists()){
-      this._notification.error('Error', 'Class already exists');
-      return;
-    }
+    const classRef = doc(this._db, 'classes', nanoid());
     // create class
     await setDoc(classRef, {
+      name: this.className,
+      semester: this.semesterName,
       instructors: [this.currentUserAddr],
       students: [],
     });

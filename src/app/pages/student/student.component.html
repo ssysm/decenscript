@@ -1,6 +1,18 @@
-<nz-tabset>
-    <nz-tab nzTitle="Fall 2022">
-        <nz-table>
+<div>
+  <button nz-button nzType="primary" (click)="showModal();">Join new class</button>
+  <nz-modal [(nzVisible)]="isVisible" nzTitle="Join new Class" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+    <ng-container *nzModalContent>
+      <label for="joinCode">Join Code: </label>
+      <input name="joinCode" id="joinCode" nz-input placeholder="Join class code" [(ngModel)]="joinCode" />
+    </ng-container>
+  </nz-modal>
+  <p>
+    Showing classes for : {{currentUserAddr}}
+  </p>
+</div>
+<nz-tabset >
+    <nz-tab *ngFor="let sem of SEMESTER" nzTitle="{{sem.name}}">
+        <nz-table #gradeTable [nzData]="tableData[sem.value]">
             <thead>
               <tr>
                 <th>Class Name</th>
@@ -8,24 +20,15 @@
                 <th>BlockID</th>
               </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+            <tr *ngFor="let data of gradeTable.data">
+              <td>{{data.className}}</td>
+              <td>{{data.grade}}</td>
+              <td>
+                <a href="">{{data.blockId}}</a>
+              </td>
+            </tr>
+            </tbody>
         </nz-table>
     </nz-tab>
-    <nz-tab nzTitle="Spring 2023"><nz-table>
-        <thead>
-          <tr>
-            <th>Class Name</th>
-            <th>Grade</th>
-            <th>BlockID</th>
-          </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>CMPSC311</td>
-                <td>A</td>
-                <td>JJSURNS56</td>
-            </tr>
-        </tbody>
-    </nz-table>
-</nz-tab>
   </nz-tabset>
