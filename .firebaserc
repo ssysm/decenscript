@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "decenscript": {
+      "hosting": {
+        "decenscript": [
+          "decenscript"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "decenscript"
+  }
+}
