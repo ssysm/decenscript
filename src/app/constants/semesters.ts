@@ -15,5 +15,9 @@ const semesters = [
     name: 'Fall 2023',
     value: 'FA23',
   },
-  ];
+  {
+    name: 'Spring 2024',
+    value: 'SP24',
+  }
+];
 export default semesters;

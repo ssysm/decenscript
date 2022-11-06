@@ -10,11 +10,13 @@ import {NzMessageService} from "ng-zorro-antd/message";
 export class AppComponent {
 
   web3: Web3 | undefined;
+  isLoggedIn = false;
 
   constructor(
     private _msg: NzMessageService
   ) {
     this.loadWeb3();
+    this.isLoggedIn = (localStorage.getItem('user') !== null);
   }
 
   loadWeb3 = async () => {
@@ -26,7 +28,8 @@ export class AppComponent {
   }
 
   disconnect = async () => {
-    this._msg.info('Please disconnect MetaMask and refresh the page');
+    this.isLoggedIn = false;
+    localStorage.removeItem('user');
   }
 
 }

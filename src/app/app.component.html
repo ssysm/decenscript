@@ -2,10 +2,15 @@
   <nz-header>
     <div class="logo"></div>
     <div id="logOutButton">
+      <nz-button-group>
       <a nz-button nzType="primary" routerLink="/verify" >Verify Token</a>
+      <a nz-button nzType="primary" (click)="disconnect()" *ngIf="isLoggedIn" >Logout</a>
+      </nz-button-group>
     </div>
     <div id="logoImage">
-      <img src="/assets/decenscript.png" alt="logo">
+      <a href="/">
+        <img src="/assets/decenscript.png" alt="logo">
+      </a>
     </div>
     <p id="decenscript">Decenscript</p>
   </nz-header>

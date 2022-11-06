@@ -3,6 +3,11 @@
 </div>
 <nz-tabset style="height: 100%" [(nzSelectedIndex)]="selectedSemesterIdx">
   <nz-tab nzTitle="{{sem.name}}" *ngFor="let sem of SEMESTERS" >
+    <div *ngIf="tableContent[sem.value] === undefined">
+      <div *ngIf="tableContent[sem.value] ">
+        <p>No class for {{sem.name}}</p>
+      </div>
+    </div>
     <nz-tabset [(nzSelectedIndex)]="selectedClassIdx"  >
       <nz-tab nzTitle="{{cls.className}}" *ngFor="let cls of tableContent[sem.value]">
         <p>Join Code: {{cls.joinCode}}</p>

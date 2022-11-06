@@ -56,6 +56,7 @@ export class AuthComponent implements OnInit,AfterViewInit {
       await setDoc(doc(this._db, 'users', accounts[0]), {
         role: 'student'
       });
+      localStorage.setItem('user', 'student');
       this._router.navigate(['/student']);
       return;
     }
@@ -64,8 +65,10 @@ this._notification.error('Error', 'Please register first');
       return;
     }
     if (snapData['role'] === 'student') {
+      localStorage.setItem('user', 'student');
       this._router.navigate(['/student']);
     }else if(snapData['role'] === 'instructor') {
+      localStorage.setItem('user', 'instr');
       this._router.navigate(['/instructor']);
     }else {
       this._notification.warning('Not registered!', 'You are not registered.');

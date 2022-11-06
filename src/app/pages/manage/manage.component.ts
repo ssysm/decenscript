@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {collection, Firestore, getDocs, query, where} from "@angular/fire/firestore";
+import {collection, doc, Firestore, getDocs, query, updateDoc, where} from "@angular/fire/firestore";
 import {NzNotificationService} from "ng-zorro-antd/notification";
 import {NzMessageService} from "ng-zorro-antd/message";
 import Web3 from "web3";
@@ -36,6 +36,7 @@ export class ManageComponent implements OnInit {
   public tableContent: TableContentInterface = {};
 
   web3: Web3 | undefined;
+  contractInstance: any | undefined;
 
   loadWeb3 = async () => {
     if (window.ethereum === undefined) {
@@ -57,11 +58,11 @@ export class ManageComponent implements OnInit {
       this._notification.error('Error', 'Please connect to Polygon Test Network (Mumbai)');
       return;
     }
-    // @ts-ignore
     this.contractInstance = new this.web3.eth.Contract(abi, environment.contractAddress, {from: accounts[0]});
   }
 
   ngOnInit(): void {
+    this.loadWeb3();
     this.loadUsers();
   }
 
@@ -88,5 +89,35 @@ export class ManageComponent implements OnInit {
     });
     console.log(this.tableContent);
   };
+
+  promoteUser = async (id: string) => {
+    const msgRef = this._msg.loading('Promoting user', {nzDuration: 0});
+    try{
+      await this.contractInstance?.methods.grantRole(this.MINTER_ROLE_HASH, id).send();
+      await updateDoc(doc(this._db, 'users', id), {role: 'instructor'});
+      await this.loadUsers();
+      this._notification.success('Success', 'User promoted to instructor');
+      this._msg.remove(msgRef.messageId);
+    } catch (e) {
+      this._notification.error('Error', 'Something went wrong');
+      console.error(e);
+      this._msg.remove(msgRef.messageId);
+    }
+  }
+
+  demoteUser = async (id: string) => {
+    const msgRef = this._msg.loading('Demoting user', {nzDuration: 0});
+    try{
+      await this.contractInstance?.methods.revokeRole(this.MINTER_ROLE_HASH, id).send();
+      await updateDoc(doc(this._db, 'users', id), {role: 'student'});
+      await this.loadUsers();
+      this._notification.success('Success', 'User demoted to student');
+      this._msg.remove(msgRef.messageId);
+    } catch (e) {
+      this._notification.error('Error', 'Something went wrong');
+      console.error(e);
+      this._msg.remove(msgRef.messageId);
+    }
+  }
 
 }

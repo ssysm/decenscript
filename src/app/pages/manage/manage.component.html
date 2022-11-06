@@ -29,20 +29,16 @@
     <nz-table #stuTable [nzData]="tableContent['student']">
       <thead>
         <tr>
-          <th>Student Name</th>
           <th>Address</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let stu of stuTable.data">
-          <td>{{stu.name}}</td>
           <td>{{stu.id}}</td>
           <td>
             <nz-button-group>
-              <button nz-button nzType="primary">Lock</button>
-              <button nz-button>Export</button>
-              <button  nz-button nzType="primary" nzDanger>Promote</button>
+              <button nz-button nzType="primary" (click)="promoteUser(stu['id'])">Promote</button>
             </nz-button-group>
           </td>
         </tr>
@@ -78,20 +74,16 @@
   <nz-table #instTable [nzData]="tableContent['instructor']">
     <thead>
       <tr>
-        <th>Instructor Name</th>
         <th>Address</th>
         <th>Action</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let inst of instTable.data">
-        <td>{{inst.name}}</td>
         <td>{{inst.id}}</td>
         <td>
           <nz-button-group>
-            <button nz-button nzType="primary">Lock</button>
-            <button nz-button>Export</button>
-            <button nz-button nzType="primary" nzDanger>Demote</button>
+            <button nz-button nzType="primary" (click)="demoteUser(inst['id'])">Demote</button>
           </nz-button-group>
         </td>
       </tr>
