@@ -17,7 +17,6 @@ import { StudentComponent } from './pages/student/student.component';
 import { InstructorComponent } from './pages/instructor/instructor.component';
 import { CreateClassComponent } from './pages/create-class/create-class.component';
 import { AuthComponent } from './pages/auth/auth.component';
-import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
@@ -33,6 +32,10 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import {NzResultModule} from "ng-zorro-antd/result";
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { VerifyComponent } from './pages/verify/verify.component';
+import {NzMenuModule} from "ng-zorro-antd/menu";
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import {NzToolTipModule} from "ng-zorro-antd/tooltip";
 
 registerLocaleData(en);
 
@@ -44,31 +47,34 @@ registerLocaleData(en);
     CreateClassComponent,
     AuthComponent,
     ManageComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    VerifyComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    NzDropDownModule,
-    NzButtonModule,
-    NzSelectModule,
-    NzTabsModule,
-    NzTableModule,
-    NzLayoutModule,
-    NzCardModule,
-    NzNotificationModule,
-    NzDividerModule,
-    NzGridModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideFirestore(() => getFirestore()),
-    NzInputModule,
-    NzModalModule,
-    NzResultModule,
-    NzMessageModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        NzButtonModule,
+        NzCardModule,
+        NzSelectModule,
+        NzTabsModule,
+        NzTableModule,
+        NzLayoutModule,
+        NzNotificationModule,
+        NzDividerModule,
+        NzGridModule,
+        provideFirebaseApp(() => initializeApp(environment.firebase)),
+        provideFirestore(() => getFirestore()),
+        NzInputModule,
+        NzModalModule,
+        NzResultModule,
+        NzMessageModule,
+        NzMenuModule,
+        NzIconModule,
+        NzToolTipModule
+    ],
   providers: [
     { provide: NZ_I18N, useValue: en_US }
   ],

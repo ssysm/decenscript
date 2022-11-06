@@ -20,6 +20,7 @@ interface TableContentInterface {
     className: string;
     grade?: string;
     txAddr?: string;
+    tokenId?: string;
   }]
 }
 
@@ -44,6 +45,7 @@ export class StudentComponent implements OnInit {
 
   public SEMESTER = semesters;
   blockView = environment.blockView;
+  contractAddr = environment.contractAddress;
 
   ngOnInit(): void {
     this.loadWeb3();
@@ -132,13 +134,15 @@ export class StudentComponent implements OnInit {
               this.tableData[semester.value] = [{
                 className: data['name'],
                 grade: querySnapshot.docs[0].data()['grade'],
-                txAddr: querySnapshot.docs[0]['id']
+                txAddr: querySnapshot.docs[0]['id'],
+                tokenId: querySnapshot.docs[0].data()['tokenId']
               }];
             }else {
               this.tableData[semester.value].push({
                 className: data['name'],
                 grade: querySnapshot.docs[0].data()['grade'],
-                txAddr: querySnapshot.docs[0]['id']
+                txAddr: querySnapshot.docs[0]['id'],
+                tokenId: querySnapshot.docs[0].data()['tokenId']
               });
             }
           }

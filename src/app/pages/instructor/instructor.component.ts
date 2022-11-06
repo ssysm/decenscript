@@ -18,6 +18,7 @@ interface TableContentInterface {
         address: string;
         grade?: string;
         txAddr?: string;
+        classCode?: string;
       }]
     }
   ]
@@ -59,10 +60,13 @@ export class InstructorComponent implements OnInit {
     await window.ethereum.request({method: 'eth_requestAccounts'});
     this.web3 = new Web3(window.ethereum);
     const accounts = await this.web3?.eth.getAccounts();
-    if (accounts?.length === 0) {
+    // @ts-ignore
+    if (accounts.length === 0) {
       return;
     }
+    // @ts-ignore
     this.contractInstance = new this.web3.eth.Contract(abi, environment.contractAddress, {from: accounts[0]});
+    // @ts-ignore
     this.currentUserAddr = accounts[0];
     this.loadClasses();
   }
@@ -95,7 +99,8 @@ export class InstructorComponent implements OnInit {
                 name: student,
                 address: student,
                 grade: null,
-                txAddr: null
+                txAddr: null,
+                classCode: doc['id']
               }
             }
             const studentGradeData = studentGrade.docs[0].data();
@@ -104,6 +109,7 @@ export class InstructorComponent implements OnInit {
               address: student,
               grade: studentGradeData['grade'],
               txAddr: studentGrade.docs[0]['id'],
+              classCode: doc['id']
             }
           })
         });
@@ -115,30 +121,36 @@ export class InstructorComponent implements OnInit {
     console.log(this.tableContent);
   }
 
-  signGrade = async (addr: any, grade: any) => {
-    const hashedURI = sha512(addr + '-' + grade);
+  signGrade = async (addr: any, grade: any, classCode: any) => {
+    const hashedURI = sha512(addr + '-' + grade + '-' + classCode);
     console.log(hashedURI);
-    this._notification.info('Sigining grade', 'Please wait on this page for the transaction to be mined and follow steps in Metamask.' +
+    console.log(classCode);
+    this._notification.info('Signing grade', 'Please wait on this page for the transaction to be mined and follow steps in Metamask.' +
       ' A new notification will appear when the transaction is complete.',
       {nzDuration: 5 * 1000});
     const ref = this._msg.loading('Signing grade', {nzDuration: 0});
-    const result = await this.contractInstance?.methods.safeMint(addr, hashedURI).send({from: this.currentUserAddr});
-    const tokenId = result.events.Transfer.returnValues.tokenId;
-    const transactionHash = result.transactionHash;
-    console.log(transactionHash);
-    // store transactionHash in firebase
-    const gradeRef = doc(this._db, 'grades', transactionHash);
-    await setDoc(gradeRef, {
-      semester: this.SEMESTERS[this.selectedSemesterIdx].value,
-      class: this.tableContent[this.SEMESTERS[this.selectedSemesterIdx].value][this.selectedClassIdx].className,
-      classCode: this.tableContent[this.SEMESTERS[this.selectedSemesterIdx].value][this.selectedClassIdx].joinCode,
-      student: addr,
-      grade: grade,
-      instructor: this.currentUserAddr,
-      tokenId
-    });
-    this._msg.remove(ref.messageId);
-    this._notification.success('Grade signed', 'The grade has been signed and the token has been minted, token id is  ' + tokenId);
-    this.loadClasses();
+    try{
+      const result = await this.contractInstance?.methods.safeMint(addr, hashedURI).send({from: this.currentUserAddr});
+      const tokenId = result.events.Transfer.returnValues.tokenId;
+      const transactionHash = result.transactionHash;
+      console.log(transactionHash);
+      // store transactionHash in firebase
+      const gradeRef = doc(this._db, 'grades', transactionHash);
+      await setDoc(gradeRef, {
+        semester: this.SEMESTERS[this.selectedSemesterIdx].value,
+        class: this.tableContent[this.SEMESTERS[this.selectedSemesterIdx].value][this.selectedClassIdx].className,
+        classCode: this.tableContent[this.SEMESTERS[this.selectedSemesterIdx].value][this.selectedClassIdx].joinCode,
+        student: addr,
+        grade: grade,
+        instructor: this.currentUserAddr,
+        tokenId
+      });
+      this._msg.remove(ref.messageId);
+      this._notification.success('Grade signed', 'The grade has been signed and the token has been minted, token id is  ' + tokenId);
+      this.loadClasses();
+    } catch (e) {
+      this._notification.error('Error', 'There was an error signing the grade. Please try again.');
+      this._msg.remove(ref.messageId);
+    }
   }
 }

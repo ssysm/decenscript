@@ -9,5 +9,6 @@ export const environment = {
   },
   contractAddress: '0x33d9574df00817981447a36127401a599a0eee96',
   blockView: 'https://mumbai.polygonscan.com/',
+  chainID: 80001,
   production: true
 };

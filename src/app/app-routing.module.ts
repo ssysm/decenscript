@@ -6,6 +6,7 @@ import { InstructorComponent } from './pages/instructor/instructor.component';
 import { ManageComponent } from './pages/manage/manage.component';
 import { StudentComponent } from './pages/student/student.component';
 import {NotFoundComponent} from "./pages/not-found/not-found.component";
+import {VerifyComponent} from "./pages/verify/verify.component";
 
 const routes: Routes = [
   {
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path: 'manage',
     component: ManageComponent
+  },
+  {
+    path: 'verify',
+    component: VerifyComponent
   },
   {
     path:'404',

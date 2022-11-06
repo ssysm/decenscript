@@ -26,7 +26,8 @@
               <td>{{data.grade}}</td>
               <td>
                 <span *ngIf="data.txAddr !== undefined">
-                  Signed. <a href="{{blockView}}/tx/{{data.txAddr}}">View Tx</a>
+                  Signed. Token ID: {{data.tokenId}} <a href="{{blockView}}/tx/{{data.txAddr}}">View Tx</a> |
+                  <a href="{{blockView}}/token/{{contractAddr}}?a={{data.tokenId}}">View Token</a>
                 </span>
                 <span *ngIf="data.txAddr === undefined">
                   Signing pending.
