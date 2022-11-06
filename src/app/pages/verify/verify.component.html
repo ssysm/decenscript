@@ -2,7 +2,7 @@
   <h2>Public Token Verification</h2>
   <p>This page serve as a public verification endpoint for checking the provided NFT token matches the wallet/letter grade.</p>
   <div nz-row>
-    <div nz-col nzSpan="8">
+    <div nz-col nzSpan="4">
       <label for="tokenId">Token ID: </label>
       <input nz-input placeholder="Token ID" id="tokenId" [(ngModel)]="tokenID" />
     </div>
@@ -10,10 +10,10 @@
       <label for="targetAddress">Wallet Address:</label>
       <input nz-input placeholder="Target Wallet Address" id="targetAddress" [(ngModel)]="verifyTargetAddress" />
     </div>
-    <div nz-col nzSpan="8">
+    <div nz-col nzSpan="4">
       <label for="letterGrade">Letter Grade Provided:</label>
       <br>
-      <nz-select id="letterGrade" [(ngModel)]="letterGradeProvided">
+      <nz-select id="letterGrade" style="width: 150px" [(ngModel)]="letterGradeProvided">
         <nz-option nzValue="A" nzLabel="A"></nz-option>
         <nz-option nzValue="A-" nzLabel="A-"></nz-option>
         <nz-option nzValue="B+" nzLabel="B+"></nz-option>
@@ -25,12 +25,17 @@
         <nz-option nzValue="F" nzLabel="F"></nz-option>
       </nz-select>
     </div>
-  </div>
-  <div nz-row>
-    <div nz-col>
-      <button nz-button nzType="primary" (click)="verifyToken()">Verify</button>
+    <div nz-col nzSpan="4">
+      <label for="classCode">Class Code:</label>
+      <input nz-input placeholder="Target Class join code" id="classCode" [(ngModel)]="verifyClassCode" />
+    </div>
+    <div nz-col nzSpan="2">
+      <label for="verify">Action:</label>
+      <br>
+      <button nz-button nzType="primary" id="verify" (click)="verifyToken()">Verify</button>
     </div>
   </div>
+  <hr>
   <div nz-row *ngIf="underVerify">
     <div nz-col nzSpan="24">
       <h3>Verification Result:</h3>
@@ -48,10 +53,22 @@
             Token Hash Verification: <span nz-icon [nzType]="isTokenHashValid ? 'check' : 'close'"></span>
           </p>
           <p>
-            Token Hash:  <input nz-input placeholder="Basic usage" [ngModel]="contractHashResult" [disabled]="true" />
+            Token Hash:  {{ contractHashResult | slice : 0: 10}}
           </p>
           <p *ngIf="!isTokenHashValid">
-            Hash based on input:  <input nz-input placeholder="Basic usage" [ngModel]="inputHash" [disabled]="true" />
+            Hash based on input:  {{ inputHash | slice : 0 : 10 }}
+            <span nz-tooltip nzTooltipTitle="Check letter grade and class code">(?)</span>
+          </p>
+        </div>
+        <div nz-col nzSpan="8">
+          <p>
+            Class Code Verification (Depends on Token Hash): <span nz-icon [nzType]="isClassCodeValid ? 'check' : 'close'"></span>
+          </p>
+          <p>
+            Code Hash:  {{ contractHashResult | slice : -8}}
+          </p>
+          <p *ngIf="!isTokenHashValid">
+            Hash based on input:  {{ inputHash | slice : -8}}
           </p>
         </div>
         <div nz-col nzSpan="8">

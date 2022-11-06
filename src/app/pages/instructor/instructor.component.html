@@ -29,7 +29,7 @@
             <nz-option nzValue="F" nzLabel="F"></nz-option>
         </nz-select></td>
           <td>
-            <button *ngIf="stu.txAddr === null" nz-button nzType="primary" nzBlock (click)="signGrade(stu.address, stu.grade)">Sign</button>
+            <button *ngIf="stu.txAddr === null" nz-button nzType="primary" nzBlock (click)="signGrade(stu.address, stu.grade, stu.classCode)">Sign</button>
             <span *ngIf="stu.txAddr !== null">
               Grade Signed.
               Verify at <a href="{{blockView}}/tx/{{stu.txAddr}}">Etherscan</a>

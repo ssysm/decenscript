@@ -35,6 +35,7 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 import { VerifyComponent } from './pages/verify/verify.component';
 import {NzMenuModule} from "ng-zorro-antd/menu";
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import {NzToolTipModule} from "ng-zorro-antd/tooltip";
 
 registerLocaleData(en);
 
@@ -49,30 +50,31 @@ registerLocaleData(en);
     NotFoundComponent,
     VerifyComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    NzButtonModule,
-    NzCardModule,
-    NzSelectModule,
-    NzTabsModule,
-    NzTableModule,
-    NzLayoutModule,
-    NzNotificationModule,
-    NzDividerModule,
-    NzGridModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideFirestore(() => getFirestore()),
-    NzInputModule,
-    NzModalModule,
-    NzResultModule,
-    NzMessageModule,
-    NzMenuModule,
-    NzIconModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        NzButtonModule,
+        NzCardModule,
+        NzSelectModule,
+        NzTabsModule,
+        NzTableModule,
+        NzLayoutModule,
+        NzNotificationModule,
+        NzDividerModule,
+        NzGridModule,
+        provideFirebaseApp(() => initializeApp(environment.firebase)),
+        provideFirestore(() => getFirestore()),
+        NzInputModule,
+        NzModalModule,
+        NzResultModule,
+        NzMessageModule,
+        NzMenuModule,
+        NzIconModule,
+        NzToolTipModule
+    ],
   providers: [
     { provide: NZ_I18N, useValue: en_US }
   ],

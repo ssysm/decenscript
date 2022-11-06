@@ -19,12 +19,14 @@ export class VerifyComponent implements OnInit {
   tokenID = '';
   verifyTargetAddress = '';
   letterGradeProvided = 'A';
+  verifyClassCode = '';
 
   underVerify = false;
   isTokenOwner = false;
   tokenOwnerResult = '';
   isTokenHashValid = false;
   contractHashResult = '';
+  isClassCodeValid = false;
   inputHash = '';
 
   web3: Web3 | undefined;
@@ -50,7 +52,8 @@ export class VerifyComponent implements OnInit {
     this.web3 = new Web3(window.ethereum);
     const accounts = await this.web3?.eth.getAccounts();
     this._msg.remove(msgRef.messageId);
-    if (accounts?.length === 0) {
+    // @ts-ignore
+    if (accounts.length === 0) {
       this._notification.error('Error', 'Please connect to MetaMask');
       return;
     }
@@ -59,36 +62,44 @@ export class VerifyComponent implements OnInit {
       this._notification.error('Error', 'Please connect to Polygon Test Network (Mumbai)');
       return;
     }
+    // @ts-ignore
     this.contractInstance = new this.web3.eth.Contract(abi, environment.contractAddress, {from: accounts[0]});
   }
 
-  verifyToken = async () =>{
+  verifyToken = async () => {
     this.underVerify = false;
     this.isTokenOwner = false;
     this.tokenOwnerResult = '';
     this.isTokenHashValid = false;
+    this.isClassCodeValid = false;
     this.contractHashResult = '';
     this.inputHash = '';
     //check inputs
-    if(this.tokenID === '' || this.verifyTargetAddress === ''){
-      this._notification.error('Error', 'Please fill in all fields');
-      return;
+    try {
+      if (this.tokenID === '' || this.verifyTargetAddress === '') {
+        this._notification.error('Error', 'Please fill in all fields');
+        return;
+      }
+      const hashedInput = sha512(this.verifyTargetAddress + '-' + this.letterGradeProvided + '-' + this.verifyClassCode);
+      this.inputHash = hashedInput;
+      const msgRef = this._msg.loading('Verifying token', {nzDuration: 0});
+      this.tokenOwnerResult = await this.contractInstance?.methods.ownerOf(this.tokenID).call();
+      if (this.tokenOwnerResult === this.verifyTargetAddress) {
+        this.isTokenOwner = true;
+      }
+      const uriResult = await this.contractInstance?.methods.tokenURI(this.tokenID).call();
+      this.contractHashResult = uriResult.split('/')[4];
+      if (this.contractHashResult === hashedInput) {
+        this.isTokenHashValid = true;
+        this.isClassCodeValid = true;
+      }
+      this.underVerify = true;
+      this._msg.remove(msgRef.messageId);
+      this._msg.success('Verification complete');
+    } catch (e) {
+      this._notification.error('Error', 'Contract Verification failed, but this does not mean the token is invalid');
+      console.error(e);
+      this.underVerify = false;
     }
-    const hashedInput = sha512(this.verifyTargetAddress + '-' + this.letterGradeProvided);
-    this.inputHash = hashedInput;
-    const msgRef = this._msg.loading('Verifying token', {nzDuration: 0});
-    this.tokenOwnerResult = await this.contractInstance?.methods.ownerOf(this.tokenID).call();
-    if(this.tokenOwnerResult === this.verifyTargetAddress){
-      this.isTokenOwner = true;
-    }
-    const uriResult = await this.contractInstance?.methods.tokenURI(this.tokenID).call();
-    this.contractHashResult = uriResult.split('/')[4];
-    if(this.contractHashResult === hashedInput){
-      this.isTokenHashValid = true;
-    }
-    this.underVerify = true;
-    this._msg.remove(msgRef.messageId);
-    this._msg.success('Verification complete');
   }
-
 }
