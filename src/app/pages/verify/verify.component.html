@@ -1,0 +1,69 @@
+<div>
+  <h2>Public Token Verification</h2>
+  <p>This page serve as a public verification endpoint for checking the provided NFT token matches the wallet/letter grade.</p>
+  <div nz-row>
+    <div nz-col nzSpan="8">
+      <label for="tokenId">Token ID: </label>
+      <input nz-input placeholder="Token ID" id="tokenId" [(ngModel)]="tokenID" />
+    </div>
+    <div nz-col nzSpan="8">
+      <label for="targetAddress">Wallet Address:</label>
+      <input nz-input placeholder="Target Wallet Address" id="targetAddress" [(ngModel)]="verifyTargetAddress" />
+    </div>
+    <div nz-col nzSpan="8">
+      <label for="letterGrade">Letter Grade Provided:</label>
+      <br>
+      <nz-select id="letterGrade" [(ngModel)]="letterGradeProvided">
+        <nz-option nzValue="A" nzLabel="A"></nz-option>
+        <nz-option nzValue="A-" nzLabel="A-"></nz-option>
+        <nz-option nzValue="B+" nzLabel="B+"></nz-option>
+        <nz-option nzValue="B" nzLabel="B"></nz-option>
+        <nz-option nzValue="B-" nzLabel="B-"></nz-option>
+        <nz-option nzValue="C+" nzLabel="C+"></nz-option>
+        <nz-option nzValue="C" nzLabel="C"></nz-option>
+        <nz-option nzValue="D" nzLabel="D"></nz-option>
+        <nz-option nzValue="F" nzLabel="F"></nz-option>
+      </nz-select>
+    </div>
+  </div>
+  <div nz-row>
+    <div nz-col>
+      <button nz-button nzType="primary" (click)="verifyToken()">Verify</button>
+    </div>
+  </div>
+  <div nz-row *ngIf="underVerify">
+    <div nz-col nzSpan="24">
+      <h3>Verification Result:</h3>
+    </div>
+    <div nz-col nzSpan="24">
+      <div nz-row>
+          <div nz-col nzSpan="8">
+            <p>
+              Owner of the Token: <span nz-icon [nzType]="isTokenOwner ? 'check' : 'close'"></span>
+            </p>
+            <p>Owner address: {{tokenOwnerResult}}</p>
+          </div>
+        <div nz-col nzSpan="8">
+          <p>
+            Token Hash Verification: <span nz-icon [nzType]="isTokenHashValid ? 'check' : 'close'"></span>
+          </p>
+          <p>
+            Token Hash:  <input nz-input placeholder="Basic usage" [ngModel]="contractHashResult" [disabled]="true" />
+          </p>
+          <p *ngIf="!isTokenHashValid">
+            Hash based on input:  <input nz-input placeholder="Basic usage" [ngModel]="inputHash" [disabled]="true" />
+          </p>
+        </div>
+        <div nz-col nzSpan="8">
+          <p>
+            Verification Status: <span nz-icon [nzType]="(isTokenHashValid && isTokenOwner)? 'check' : 'close'"></span>
+          </p>
+          <h1>
+            <span *ngIf="(isTokenHashValid && isTokenOwner)">Verified</span>
+            <span *ngIf="!(isTokenHashValid && isTokenOwner)">Failed!</span>
+          </h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

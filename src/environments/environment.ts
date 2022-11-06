@@ -12,6 +12,7 @@ export const environment = {
     messagingSenderId: '919239954352',
   },
   contractAddress: '0x33d9574df00817981447a36127401a599a0eee96',
+  chainID: 80001,
   blockView: 'https://mumbai.polygonscan.com/',
   production: false
 };
