@@ -1,27 +1,30 @@
-# Decenscript
+## Inspiration
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.1.
+During my college transferring process, the amount of transcript I've send and the amount of undelivered transcript took a lot of time to address them, so Decenscript is trying to solve the problem of sending transcripts between different academic institutions by putting the transcript onto the blockchain and mint into an NFT.
 
-## Development server
+## What it does
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Decenscript is a decentralized, always trusted and highly secure grade keeping and transcript platform that interact directly with the instructors at the institutions and the students where they can mint/sign a digital report card for an individual course that is on the blockchain. During signing, a cryptographic hash function will hash the student's wallet address, instructors wallet address and the letter grade to future ensure the integrity of the report.
 
-## Code scaffolding
+## How we built it
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+We used solidity to program smart contract on the Polygon network using the ERC721 standard. The frontend stack used angular as the web framework and AntD UI as the UI library. The stack is deployed on Google Cloud Platform and using Cloud Firestore to store all metadata of the token.
 
-## Build
+## Challenges we ran into
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+The reason why we chosen Polygon network instead of the regular Ethereum network is because of the high gas fee and the slow transaction speed. We also ran into the problem of the frontend not being able to connect to the smart contract because of the CORS issue.
+We also ran into the problem of the frontend not being able to connect to the smart contract because of the browsers issues.
 
-## Running unit tests
+## Accomplishments that we're proud of
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+We are proud of the fact that we are able to build a fully functional web application that is able to interact with the smart contract on the Polygon network and we are specifically proud we learned solidity in a short period of time.
 
-## Running end-to-end tests
+## What we learned
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+We learned that there's so much behind a well built dApp(Decentralized Application), a lot of security and privacy issues that we need to take care of. We also learned that the frontend is not the only thing that we need to focus on, we also need to focus on the backend and the smart contract.
+But since we used Google Cloud Platform, we didn't have to worry about the backend that much in this project.
 
-## Further help
+## What's next for Decenscript
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+We want to add more features to the platform such as the ability to sign a transcript for a whole semester and the ability to sign a transcript for a whole year and even for a whole degree program. 
+We would also like to add more security and integrity features to the platform.

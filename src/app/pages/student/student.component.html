@@ -17,7 +17,7 @@
               <tr>
                 <th>Class Name</th>
                 <th>Grade</th>
-                <th>BlockID</th>
+                <th>Signing Status</th>
               </tr>
             </thead>
             <tbody>
@@ -25,7 +25,12 @@
               <td>{{data.className}}</td>
               <td>{{data.grade}}</td>
               <td>
-                <a href="">{{data.blockId}}</a>
+                <span *ngIf="data.txAddr !== undefined">
+                  Signed. <a href="{{blockView}}/tx/{{data.txAddr}}">View Tx</a>
+                </span>
+                <span *ngIf="data.txAddr === undefined">
+                  Signing pending.
+                </span>
               </td>
             </tr>
             </tbody>

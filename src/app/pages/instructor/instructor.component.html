@@ -1,25 +1,23 @@
 <div>
   <a routerLink="/create-class" nz-button nzType="primary" >Create new class</a>
 </div>
-<nz-tabset style="height: 100%">
-  <nz-tab nzTitle="Fall 2022">
-    <nz-tabset>
-        <nz-tab nzTitle = "CMPSC311">
-    <nz-table
-        [nzScroll] = "{y :'1000px'}">
+<nz-tabset style="height: 100%" [(nzSelectedIndex)]="selectedSemesterIdx">
+  <nz-tab nzTitle="{{sem.name}}" *ngFor="let sem of SEMESTERS" >
+    <nz-tabset [(nzSelectedIndex)]="selectedClassIdx"  >
+      <nz-tab nzTitle="{{cls.className}}" *ngFor="let cls of tableContent[sem.value]">
+        <p>Join Code: {{cls.joinCode}}</p>
+    <nz-table #gradeTable [nzData]="cls.students">
       <thead>
         <tr>
-          <th>Student Name</th>
-          <th>Class Name</th>
+          <th>Student Id</th>
           <th>Grade</th>
-          <th>Signiture</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Joe Su</td>
-          <td>CMPSC 311</td>
-          <td><nz-select ngModel="Grades">
+        <tr *ngFor="let stu of gradeTable.data">
+          <td>{{stu.name}}</td>
+          <td><nz-select [(ngModel)]="stu.grade" [disabled]="stu.txAddr !== null">
             <nz-option nzValue="A" nzLabel="A"></nz-option>
             <nz-option nzValue="A-" nzLabel="A-"></nz-option>
             <nz-option nzValue="B+" nzLabel="B+"></nz-option>
@@ -30,46 +28,17 @@
             <nz-option nzValue="D" nzLabel="D"></nz-option>
             <nz-option nzValue="F" nzLabel="F"></nz-option>
         </nz-select></td>
-          <td><button nz-button nzType="primary" nzBlock>Sign</button></td>
+          <td>
+            <button *ngIf="stu.txAddr === null" nz-button nzType="primary" nzBlock (click)="signGrade(stu.address, stu.grade)">Sign</button>
+            <span *ngIf="stu.txAddr !== null">
+              Grade Signed.
+              Verify at <a href="{{blockView}}/tx/{{stu.txAddr}}">Etherscan</a>
+            </span>
+          </td>
         </tr>
       </tbody>
     </nz-table>
 </nz-tab>
 </nz-tabset>
   </nz-tab>
-  <nz-tab nzTitle="Spring 2023"
-    >
-    <nz-tabset>
-        <nz-tab nzTitle = "CMPSC311">
-            <nz-table>
-      <thead>
-        <tr>
-          <th>Student Name</th>
-          <th>Class Name</th>
-          <th>Grade</th>
-          <th>Signiture</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Joe Su</td>
-          <td>CMPSC 311</td>
-          <td><nz-select ngModel="Grades">
-            <nz-option nzValue="A" nzLabel="A"></nz-option>
-            <nz-option nzValue="A-" nzLabel="A-"></nz-option>
-            <nz-option nzValue="B+" nzLabel="B+"></nz-option>
-            <nz-option nzValue="B" nzLabel="B"></nz-option>
-            <nz-option nzValue="B-" nzLabel="B-"></nz-option>
-            <nz-option nzValue="C+" nzLabel="C+"></nz-option>
-            <nz-option nzValue="C" nzLabel="C"></nz-option>
-            <nz-option nzValue="D" nzLabel="D"></nz-option>
-            <nz-option nzValue="F" nzLabel="F"></nz-option>
-        </nz-select></td>
-          <td><button nz-button nzType="primary" nzBlock>Sign</button></td>
-        </tr>
-      </tbody>
-    </nz-table>
-</nz-tab>
-</nz-tabset>
-    </nz-tab>
 </nz-tabset>

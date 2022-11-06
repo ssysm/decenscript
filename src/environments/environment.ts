@@ -11,6 +11,8 @@ export const environment = {
     authDomain: 'decenscript.firebaseapp.com',
     messagingSenderId: '919239954352',
   },
+  contractAddress: '0x33d9574df00817981447a36127401a599a0eee96',
+  blockView: 'https://mumbai.polygonscan.com/',
   production: false
 };
 

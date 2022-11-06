@@ -3,7 +3,7 @@ import {ContractService} from "../../services/contract.service";
 import {Router} from "@angular/router";
 import Web3 from "web3";
 import {NzNotificationService} from "ng-zorro-antd/notification";
-import {collection, doc, Firestore, getDoc, setDoc} from "@angular/fire/firestore";
+import { doc, Firestore, getDoc, setDoc} from "@angular/fire/firestore";
 
 @Component({
   selector: 'app-auth',
@@ -30,14 +30,17 @@ export class AuthComponent implements OnInit {
     return true;
   }
 
-  ngOnInit(): void {
-    this.ethEnabled().then((result) => {
-    if (!result) {
-      this._notification.error('Error', 'Please install MetaMask to use this app');
+  checkEth = async () => {
+    const exist = await this.ethEnabled();
+    if(!exist) {
+      this._notification.error('Error', 'Please install MetaMask');
       return;
     }
     this.checkUser();
-  });
+  }
+
+  ngOnInit(): void {
+    this.checkEth();
   }
 
   checkUser = async () => {

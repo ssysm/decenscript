@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {NzNotificationService} from "ng-zorro-antd/notification";
 import Web3 from "web3";
 import { customAlphabet } from 'nanoid';
+import semesters from "../../constants/semesters";
 const nanoid = customAlphabet('1234567890ABCDEF', 10)
 
 @Component({
@@ -23,6 +24,8 @@ export class CreateClassComponent implements OnInit {
   className : string = '';
   semesterName : string = '';
   currentUserAddr = '';
+  public SEMESTERS = semesters;
+
   ngOnInit(): void {
     this.loadWeb3();
   }

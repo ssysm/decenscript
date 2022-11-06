@@ -30,6 +30,9 @@ import {NzInputModule} from "ng-zorro-antd/input";
 import {NzModalModule} from "ng-zorro-antd/modal";
 import {NzDividerModule} from "ng-zorro-antd/divider";
 import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
+import {NzResultModule} from "ng-zorro-antd/result";
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 registerLocaleData(en);
 
@@ -40,7 +43,8 @@ registerLocaleData(en);
     InstructorComponent,
     CreateClassComponent,
     AuthComponent,
-    ManageComponent
+    ManageComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -62,6 +66,8 @@ registerLocaleData(en);
     provideFirestore(() => getFirestore()),
     NzInputModule,
     NzModalModule,
+    NzResultModule,
+    NzMessageModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US }
