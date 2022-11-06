@@ -1,10 +1,16 @@
-<nz-layout style="height: 100%;">
-    <nz-header>
-      <div class="logo"></div>
-<!--      <div id="logOutButton"><button nz-button nzType="primary" (click)="disconnect()" >Log Out</button></div>-->
-    </nz-header>
-    <nz-content style="margin: 25px; height: 100%;" >
-        <router-outlet></router-outlet>
-    </nz-content>
-    <nz-footer>Decenscript</nz-footer>
-  </nz-layout>
+<nz-layout style="height: 100%">
+  <nz-header>
+    <div class="logo"></div>
+    <div id="logOutButton">
+      <button nz-button nzType="primary">Log Out</button>
+    </div>
+    <div id="logoImage">
+      <img src="/assets/decenscript.png">
+    </div>
+    <p id="decenscript">Decenscript</p>
+  </nz-header>
+  <nz-content style="margin: 25px; height: 100%">
+    <router-outlet></router-outlet>
+  </nz-content>
+  <nz-footer>Decenscript</nz-footer>
+</nz-layout>
