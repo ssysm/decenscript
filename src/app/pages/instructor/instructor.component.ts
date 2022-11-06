@@ -19,6 +19,7 @@ interface TableContentInterface {
         grade?: string;
         txAddr?: string;
         classCode?: string;
+        tokenId?: string;
       }]
     }
   ]
@@ -48,6 +49,7 @@ export class InstructorComponent implements OnInit {
   public tableContent: TableContentInterface = {};
   public contractInstance: Contract | undefined;
   blockView = environment.blockView;
+  contractAddr = environment.contractAddress;
 
   ngOnInit(): void {
     this.loadWeb3();
@@ -109,7 +111,8 @@ export class InstructorComponent implements OnInit {
               address: student,
               grade: studentGradeData['grade'],
               txAddr: studentGrade.docs[0]['id'],
-              classCode: doc['id']
+              classCode: doc['id'],
+              tokenId: studentGradeData['tokenId']
             }
           })
         });

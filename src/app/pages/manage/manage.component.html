@@ -1,4 +1,4 @@
-<nz-tabset style="height: 100%; overflow: auto">
+  <nz-tabset style="height: 100%; overflow: auto">
   <nz-tab nzTitle="Student">
     <div style="background: #ececec; padding: 30px">
       <nz-card
@@ -26,7 +26,7 @@
         <button nz-button nzType="primary">Create</button>
       </nz-card>
     </div>
-    <nz-table>
+    <nz-table #stuTable [nzData]="tableContent['student']">
       <thead>
         <tr>
           <th>Student Name</th>
@@ -35,9 +35,9 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Joe Su</td>
-          <td>395B431113</td>
+        <tr *ngFor="let stu of stuTable.data">
+          <td>{{stu.name}}</td>
+          <td>{{stu.id}}</td>
           <td>
             <nz-button-group>
               <button nz-button nzType="primary">Lock</button>
@@ -74,7 +74,7 @@
       <button nz-button nzType="primary">Create</button>
     </nz-card>
   </div>
-  <nz-table>
+  <nz-table #instTable [nzData]="tableContent['instructor']">
     <thead>
       <tr>
         <th>Instructor Name</th>
@@ -83,9 +83,9 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>Joe Su</td>
-        <td>395B431113</td>
+      <tr *ngFor="let inst of instTable.data">
+        <td>{{inst.name}}</td>
+        <td>{{inst.id}}</td>
         <td>
           <nz-button-group>
             <button nz-button nzType="primary">Lock</button>

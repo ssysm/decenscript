@@ -31,8 +31,8 @@
           <td>
             <button *ngIf="stu.txAddr === null" nz-button nzType="primary" nzBlock (click)="signGrade(stu.address, stu.grade, stu.classCode)">Sign</button>
             <span *ngIf="stu.txAddr !== null">
-              Grade Signed.
-              Verify at <a href="{{blockView}}/tx/{{stu.txAddr}}">Etherscan</a>
+              Grade Signed. Token ID: {{stu.tokenId}} |
+              Verify <a href="{{blockView}}/tx/{{stu.txAddr}}">Tx</a> and <a href="{{blockView}}/token/{{contractAddr}}?a={{stu.tokenId}}">Token</a> at Etherscan.
             </span>
           </td>
         </tr>
