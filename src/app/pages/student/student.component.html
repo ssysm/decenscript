@@ -12,7 +12,7 @@
 </div>
 <nz-tabset >
     <nz-tab *ngFor="let sem of SEMESTER" nzTitle="{{sem.name}}">
-        <nz-table #gradeTable [nzData]="tableData[sem.value]">
+        <nz-table #gradeTable [nzData]="tableData[sem.value]" nzTemplateMode="true">
             <thead>
               <tr>
                 <th>Class Name</th>
@@ -21,7 +21,7 @@
               </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let data of gradeTable.data">
+            <tr *ngFor="let data of tableData[sem.value]">
               <td>{{data.className}}</td>
               <td>{{data.grade}}</td>
               <td>

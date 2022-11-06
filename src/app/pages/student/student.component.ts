@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import semesters from "../../constants/semesters";
 import {
   collection,
@@ -34,6 +34,7 @@ export class StudentComponent implements OnInit {
   constructor(
     private _db: Firestore,
     private _notification: NzNotificationService,
+    private ref: ChangeDetectorRef
   ) { }
 
   public isVisible = false;
@@ -107,6 +108,8 @@ export class StudentComponent implements OnInit {
         where('students', 'array-contains', this.currentUserAddr)
       );
       const querySnap = await getDocs(q);
+      // @ts-ignore
+      this.tableData[semester.value] = [];
       querySnap.forEach( (doc) => {
         const data = doc.data();
 
@@ -116,39 +119,24 @@ export class StudentComponent implements OnInit {
           where('classCode', '==', doc['id'])
         )).then((querySnapshot) => {
           if(querySnapshot.size === 0) {
-            if(this.tableData[semester.value] === undefined) {
-              this.tableData[semester.value] = [{
-                className: data['name'],
-                grade: 'N/A',
-                txAddr: undefined
-              }];
-            }else {
-              this.tableData[semester.value].push({
-                className: data['name'],
-                grade: 'N/A',
-                txAddr: undefined
-              });
-            }
+            this.tableData[semester.value].push({
+              className: data['name'],
+              grade: 'N/A',
+              txAddr: undefined
+            });
           }else{
-            if(this.tableData[semester.value] === undefined) {
-              this.tableData[semester.value] = [{
-                className: data['name'],
-                grade: querySnapshot.docs[0].data()['grade'],
-                txAddr: querySnapshot.docs[0]['id'],
-                tokenId: querySnapshot.docs[0].data()['tokenId']
-              }];
-            }else {
-              this.tableData[semester.value].push({
-                className: data['name'],
-                grade: querySnapshot.docs[0].data()['grade'],
-                txAddr: querySnapshot.docs[0]['id'],
-                tokenId: querySnapshot.docs[0].data()['tokenId']
-              });
-            }
+            // @ts-ignore
+            this.tableData[semester.value].push({
+              className: data['name'],
+              grade: querySnapshot.docs[0].data()['grade'],
+              txAddr: querySnapshot.docs[0]['id'],
+              tokenId: querySnapshot.docs[0].data()['tokenId']
+            });
           }
           });
       });
-      console.log();
+      console.log(this.tableData);
+      this.ref.detectChanges();
     }
   }
 
